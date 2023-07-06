@@ -16,7 +16,7 @@ author:
     name: Konrad Kohbrok
     organization: Phoenix R&D
     email: konrad.kohbrok@datashrine.de
--  ins: R. Robert
+ -  ins: R. Robert
     name: Raphael Robert
     organization: Phoenix R&D
     email: ietf@raphaelrobert.com
@@ -132,7 +132,7 @@ Delivery Service:
 struct {
   MigrationResponse migration_response;
   opaque signature<V>;
-} MigrationInit; 
+} MigrationInit;
 ~~~
 
 The client also sends a Commit message to the group that contains an update to
@@ -184,7 +184,7 @@ Clients can now send messages to the group using the Target Delivery Service.
 In general, whether a client is allowed to migrate an MLS group from one
 Delivery Service to another is a policy decision that is made by the operator of
 the Source Delivery Service. The Source Delivery Service MUST NOT allow a client
-to migrate an MLS group if the client is not authorized to do so. 
+to migrate an MLS group if the client is not authorized to do so.
 
 As a default policy, a Source Delivery Service SHOULD allow any client to
 migrate an MLS group to another Delivery Service.
@@ -193,7 +193,7 @@ Conversely, the Target Delivery Service MUST NOT allow a client to import an MLS
 group if the client is not authorized to do so. The Target Delivery Service MUST
 ensure that the client is authorized to import the MLS group before issuing a
 MigrationResponse and importing the MLS group state through an MigrationContent
-message. 
+message.
 
 As a default policy, a Target Delivery Service SHOULD allow any client to
 migrate an MLS group to it when the client is also allowed to create new groups
