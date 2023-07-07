@@ -94,7 +94,8 @@ Delivery Service. This needs to be described in more detail.
 
 TODO: Describe what keys are used for the signatures.
 
-## Requesting a migration
+TODO: Describe that the crypto primitives should be aligned with the ciphersuite
+of the MLS group.## Requesting a migration
 
 The migration process is initiated by a client of the MLS group. The client
 requests a MigrationResponse from the Target Delivery Service. The Target
