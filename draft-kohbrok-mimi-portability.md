@@ -86,21 +86,25 @@ Client                    Source Delivery Service           Target Delivery Serv
 
 TODO: The MLS group ID is fixed for the lifetime of a group and cannot be
 changed. This requires group IDs to be globally unique across all relevant
-Delivery Services. One way to achiev this is to ensure a group ID is composed of
-a locally unique part (per Delivery Service) and cobined with FQDN of the
-Delivery Service. This needs to be described in more detail.
+Delivery Services. Even though this could be solved using a UUID, groups should
+also be tied to a specific owning delivery service. For the purpose of this
+document, we solve this by including an MLS GroupContext Extension in every
+group that contains the FQDN of the group's designated DS. This needs to be
+described in more detail.
 
 # Migration
 
 TODO: Describe what keys are used for the signatures.
 
 TODO: Describe that the crypto primitives should be aligned with the ciphersuite
-of the MLS group.## Requesting a migration
+of the MLS group.
+
+## Requesting a migration
 
 The migration process is initiated by a client of the MLS group. The client
 requests a MigrationResponse from the Target Delivery Service. The Target
 Delivery Service returns a MigrationResponse that can be used by the Source
-Delivery Service to import the MLS group state into the Target Delivery Service.
+Delivery Service to transfer the MLS group state to the Target Delivery Service.
 
 The client sends the following MigrationRequest message to the Target Delivery
 Service:
@@ -134,11 +138,19 @@ struct {
   MigrationResponse migration_response;
   opaque signature<V>;
 } MigrationInit;
+
+struct {
+  FQDN target_ds_domain;
+} FQDNProposal
 ~~~
 
 The client also sends a Commit message to the group that contains an update to
 the FQDN group context extension. The Commit only contains an FQDNProposal, no
 other proposals are allowed.
+
+TODO: Should the FQDNProposal include the MigrationResponse s.t. other clients
+can validate the process at least to some degree? Also, why not include the
+commit in the MigrationInit message?
 
 The Source Delivery Service sends a MigrationContent message to the Target
 Delivery Service:
@@ -159,6 +171,9 @@ struct {
   opaque signature<V>;
 } TargetMigrationComplete;
 ~~~
+
+TODO: Instead of the MigrationResponse hash, why not include a MigrationContent
+hash?
 
 The Source Delivery Service proceeds to fan out the client's Commit message that
 covers the FQDNProposal to the group.
@@ -199,3 +214,6 @@ message.
 As a default policy, a Target Delivery Service SHOULD allow any client to
 migrate an MLS group to it when the client is also allowed to create new groups
 on the Target Delivery Service.
+
+TODO: Maybe restrict the default policies s.t. only clients from the target DS
+can request migration to that DS?
