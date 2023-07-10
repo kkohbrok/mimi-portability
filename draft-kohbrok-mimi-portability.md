@@ -86,21 +86,22 @@ Client                    Source Delivery Service           Target Delivery Serv
 
 TODO: The MLS group ID is fixed for the lifetime of a group and cannot be
 changed. This requires group IDs to be globally unique across all relevant
-Delivery Services. One way to achiev this is to ensure a group ID is composed of
-a locally unique part (per Delivery Service) and cobined with FQDN of the
-Delivery Service. This needs to be described in more detail.
+Delivery Services. Even though this could be solved using a UUID, groups should
+also be tied to a specific owning delivery service.
 
 # Migration
 
 TODO: Describe what keys are used for the signatures.
 
 TODO: Describe that the crypto primitives should be aligned with the ciphersuite
-of the MLS group.## Requesting a migration
+of the MLS group.
+
+## Requesting a migration
 
 The migration process is initiated by a client of the MLS group. The client
 requests a MigrationResponse from the Target Delivery Service. The Target
 Delivery Service returns a MigrationResponse that can be used by the Source
-Delivery Service to import the MLS group state into the Target Delivery Service.
+Delivery Service to transfer the MLS group state to the Target Delivery Service.
 
 The client sends the following MigrationRequest message to the Target Delivery
 Service:
@@ -134,11 +135,14 @@ struct {
   MigrationResponse migration_response;
   opaque signature<V>;
 } MigrationInit;
+
+struct {
+  opaque target_ds_domain<V>;
+} MigrationCommitAAD
 ~~~
 
-The client also sends a Commit message to the group that contains an update to
-the FQDN group context extension. The Commit only contains an FQDNProposal, no
-other proposals are allowed.
+The client also sends a Commit message to the group, where the AAD consists of a
+serialized MigrationCommitAAD struct.
 
 The Source Delivery Service sends a MigrationContent message to the Target
 Delivery Service:
@@ -155,13 +159,13 @@ The Target Delivery Service responds with a TargetMigrationComplete message:
 
 ~~~tls
 struct {
-  opaque migration_response_hash<V>;
+  opaque migration_content_hash<V>;
   opaque signature<V>;
 } TargetMigrationComplete;
 ~~~
 
 The Source Delivery Service proceeds to fan out the client's Commit message that
-covers the FQDNProposal to the group.
+includes the MigrationCommmitAAD to the group.
 
 Finally, the Source Delivery Service responds to the client with a
 MigrationConfirmation message:
@@ -199,3 +203,7 @@ message.
 As a default policy, a Target Delivery Service SHOULD allow any client to
 migrate an MLS group to it when the client is also allowed to create new groups
 on the Target Delivery Service.
+
+TODO: The default policies suggested above may be a bit liberal. We might want
+to restrict them s.t. only clients from the target DS can request migration to
+that DS.
