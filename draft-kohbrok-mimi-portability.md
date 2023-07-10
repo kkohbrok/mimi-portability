@@ -87,10 +87,7 @@ Client                    Source Delivery Service           Target Delivery Serv
 TODO: The MLS group ID is fixed for the lifetime of a group and cannot be
 changed. This requires group IDs to be globally unique across all relevant
 Delivery Services. Even though this could be solved using a UUID, groups should
-also be tied to a specific owning delivery service. For the purpose of this
-document, we solve this by including an MLS GroupContext Extension in every
-group that contains the FQDN of the group's designated DS. This needs to be
-described in more detail.
+also be tied to a specific owning delivery service.
 
 # Migration
 
@@ -140,17 +137,12 @@ struct {
 } MigrationInit;
 
 struct {
-  FQDN target_ds_domain;
-} FQDNProposal
+  opaque target_ds_domain<V>;
+} MigrationCommitAAD
 ~~~
 
-The client also sends a Commit message to the group that contains an update to
-the FQDN group context extension. The Commit only contains an FQDNProposal, no
-other proposals are allowed.
-
-TODO: Should the FQDNProposal include the MigrationResponse s.t. other clients
-can validate the process at least to some degree? Also, why not include the
-commit in the MigrationInit message?
+The client also sends a Commit message to the group, where the AAD consists of a
+serialized MigrationCommitAAD struct.
 
 The Source Delivery Service sends a MigrationContent message to the Target
 Delivery Service:
@@ -167,16 +159,13 @@ The Target Delivery Service responds with a TargetMigrationComplete message:
 
 ~~~tls
 struct {
-  opaque migration_response_hash<V>;
+  opaque migration_content_hash<V>;
   opaque signature<V>;
 } TargetMigrationComplete;
 ~~~
 
-TODO: Instead of the MigrationResponse hash, why not include a MigrationContent
-hash?
-
 The Source Delivery Service proceeds to fan out the client's Commit message that
-covers the FQDNProposal to the group.
+includes the MigrationCommmitAAD to the group.
 
 Finally, the Source Delivery Service responds to the client with a
 MigrationConfirmation message:
@@ -215,5 +204,6 @@ As a default policy, a Target Delivery Service SHOULD allow any client to
 migrate an MLS group to it when the client is also allowed to create new groups
 on the Target Delivery Service.
 
-TODO: Maybe restrict the default policies s.t. only clients from the target DS
-can request migration to that DS?
+TODO: The default policies suggested above may be a bit liberal. We might want
+to restrict them s.t. only clients from the target DS can request migration to
+that DS.
