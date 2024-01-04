@@ -5,7 +5,7 @@
 Network Working Group                                         K. Kohbrok
 Internet-Draft                                                 R. Robert
 Intended status: Informational                               Phoenix R&D
-Expires: 11 January 2024                                    10 July 2023
+Expires: 7 July 2024                                      4 January 2024
 
 
                             MIMI Portability
@@ -30,11 +30,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 January 2024.
+   This Internet-Draft will expire on 7 July 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -49,6 +49,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
+     1.1.  Change Log
    2.  Architecture
    3.  Migration
      3.1.  Requesting a migration
@@ -74,6 +75,12 @@ Table of Contents
 
    This document describes mechanisms that allow users to switch an MLS
    group to a different Delivery Service.
+
+1.1.  Change Log
+
+   draft-01
+
+   *  Version bump to prevent expiration
 
 2.  Architecture
 
