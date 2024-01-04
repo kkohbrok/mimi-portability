@@ -44,6 +44,12 @@ users of a group want to switch to a different Delivery Service.
 This document describes mechanisms that allow users to switch an MLS group to a
 different Delivery Service.
 
+## Change Log
+
+draft-01
+
+- Version bump to prevent expiration
+
 # Architecture
 
 We consider two distinct Delivery Services, the *Source Delivery Service* and
