@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-10T00:12:55.121477+00:00",
+  "timestamp": "2024-09-15T00:14:32.606700+00:00",
   "repo": "kkohbrok/mimi-portability",
   "labels": [
     {
@@ -147,6 +147,48 @@
           "body": "",
           "createdAt": "2023-07-10T14:41:03Z",
           "updatedAt": "2023-07-10T14:41:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOJ3YJM857Qo0e",
+      "title": "Update CI",
+      "url": "https://github.com/kkohbrok/mimi-portability/pull/2",
+      "state": "MERGED",
+      "author": "raphaelrobert",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-09-12T07:25:04Z",
+      "updatedAt": "2024-09-13T08:57:15Z",
+      "baseRepository": "kkohbrok/mimi-portability",
+      "baseRefName": "main",
+      "baseRefOid": "25ec5a36e6063d3983b23b6bdafc995e5699e982",
+      "headRepository": "kkohbrok/mimi-portability",
+      "headRefName": "raphael/update-ci",
+      "headRefOid": "e250e3e531b430a322676909b9f8120ff7ec48e7",
+      "closedAt": "2024-09-13T08:57:15Z",
+      "mergedAt": "2024-09-13T08:57:15Z",
+      "mergedBy": "kkohbrok",
+      "mergeCommit": {
+        "oid": "90bc2e0043e621d140760082dae1fad9f77c6daf"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3YJM86JPfzN",
+          "commit": {
+            "abbreviatedOid": "e250e3e"
+          },
+          "author": "kkohbrok",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-13T08:57:00Z",
+          "updatedAt": "2024-09-13T08:57:00Z",
           "comments": []
         }
       ]
