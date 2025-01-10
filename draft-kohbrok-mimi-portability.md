@@ -50,6 +50,14 @@ draft-01
 
 - Version bump to prevent expiration
 
+draft-02
+
+- Version bump to prevent expiration
+
+draft-03
+
+- Version bump to prevent expiration
+
 # Architecture
 
 We consider two distinct Delivery Services, the *Source Delivery Service* and
